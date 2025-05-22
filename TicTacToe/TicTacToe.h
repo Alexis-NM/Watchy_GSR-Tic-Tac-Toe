@@ -43,10 +43,8 @@ public:
             drawBoard();
     }
 
-    bool InsertNeedAwake(bool) override
-    {
-        return CurrentGameID() == TicTacToeGame;
-    }
+    bool InsertNeedAwake(bool) override { return CurrentGameID() == TicTacToeGame; }
+
     bool InsertHandlePressed(uint8_t btn, bool &Haptic, bool &Refresh) override
     {
         if (CurrentGameID() != TicTacToeGame)
@@ -78,8 +76,6 @@ public:
                 showModal = false;
                 break;
             case 4:
-                modalSel = (modalSel + 1) % 2;
-                break;
             case 3:
                 modalSel = (modalSel + 1) % 2;
                 break;
@@ -171,9 +167,13 @@ private:
             return;
         }
 
-        for (uint8_t i = 1; i < 3; i++)
-            display.drawLine(x0 + cell * i, y0, x0 + cell * i, y0 + grid, ForeColor());
-        display.drawLine(x0, y0 + cell * i, x0 + grid, y0 + cell * i, ForeColor());
+        {
+            for (uint8_t i = 1; i < 3; i++)
+            {
+                display.drawLine(x0 + cell * i, y0, x0 + cell * i, y0 + grid, ForeColor());
+                display.drawLine(x0, y0 + cell * i, x0 + grid, y0 + cell * i, ForeColor());
+            }
+        }
 
         for (uint8_t i = 0; i < 9; i++)
         {
