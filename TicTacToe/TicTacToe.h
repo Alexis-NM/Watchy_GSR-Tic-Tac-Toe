@@ -4,7 +4,7 @@
 #include "Watchy_GSR.h"
 #include <Arduino.h>
 
-RTC_DATA_ATTR uint8_t TicTacToeGameStyle;
+RTC_DATA_ATTR uint8_t TicTacToeGame;
 RTC_DATA_ATTR int8_t board[9];
 RTC_DATA_ATTR uint8_t cursorPos;
 RTC_DATA_ATTR int8_t gameState;
@@ -28,26 +28,28 @@ public:
 
     void RegisterWatchFaces() override
     {
-        TicTacToeGameStyle = AddWatchStyle("Tic-Tac-Toe", this, true);
+        TicTacToeGame = AddWatchStyle("Tic-Tac-Toe", this, true);
     }
 
     void InsertInitWatchStyle(uint8_t StyleID) override
     {
-        if (StyleID == TicTacToeGameStyle)
+        if (StyleID == TicTacToeGame)
             resetGame();
     }
 
     void InsertDrawWatchStyle(uint8_t StyleID) override
     {
-        if (StyleID == TicTacToeGameStyle)
+        if (StyleID == TicTacToeGame)
             drawBoard();
     }
 
-    bool InsertNeedAwake(bool) override { return true; }
-
+    bool InsertNeedAwake(bool) override
+    {
+        return CurrentGameID() == TicTacToeGame;
+    }
     bool InsertHandlePressed(uint8_t btn, bool &Haptic, bool &Refresh) override
     {
-        if (CurrentGameID() != TicTacToeGameStyle)
+        if (CurrentGameID() != TicTacToeGame)
             return false;
         Haptic = Refresh = true;
         uint32_t now = millis();
