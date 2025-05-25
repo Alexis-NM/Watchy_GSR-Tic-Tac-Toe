@@ -1,3 +1,5 @@
+// STILL WORK IN PROGRESS (battery drain pretty high, needs optimization)
+
 #ifndef TICTACTOEGAME_H
 #define TICTACTOEGAME_H
 

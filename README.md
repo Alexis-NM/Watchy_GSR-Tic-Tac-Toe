@@ -1,43 +1,102 @@
-# Watchy TicTacToe Game Addon
+# Watchy GSR Add-ons
 
-A simple, minimalist, plug-and-play TicTacToe game for the Watchy with GSR firmware.
-
----
-
-## Overview
-
-This open-source TicTacToe game addon brings the classic 3×3 grid game to your Watchy in a clean, easy-to-use package. Designed for seamless integration with the GSR firmware, it requires minimal setup—just drop it into your Watchface Addons folder and update your `GSR.ino` with a single include.
+This monorepo centralizes multiple plug-and-play watchface add-ons for the Watchy running the GSR firmware. Simply pick the add-ons you want, include them in your sketch, and build!
 
 ---
 
-## Requirements
+## Table of Contents
 
-- **GSR firmware**
-- Arduino IDE (or PlatformIO) configured for Watchy development
+1. [Prerequisites](#prerequisites)  
+2. [Add-ons Included](#add-ons-included)  
+3. [Installation](#installation)  
+4. [Usage](#usage)  
+5. [Contributing](#contributing)  
+6. [License](#license)  
+
+---
+
+## Prerequisites
+
+- Watchy development environment (PlatformIO or Arduino IDE) configured for GSR  
+- A Watchy device running GSR firmware  
+
+---
+
+## Add-ons Included
+
+- **Album Cover Watchface** (`AlbumCoverWatchface`)  
+- **TicTacToe Game** (`TicTacToe`) – *WIP, high battery drain*  
+- **RedubGSR Watchface** (`RedubGSR`)  
+- **OrbitalGSR Watchface** (`OrbitalGSR`)  
+- **CaptnGSR Watchface** (`CaptnGSR`)  
+- **StationaryGSR Watchface** (`Stationary`)  
 
 ---
 
 ## Installation
 
-1. **Clone or Download**  
+1. **Clone the monorepo**  
    ```bash
-   git clone https://github.com/yourusername/watchy-tictactoe.git
+   git clone https://github.com/yourusername/Watchy_GSR-Add-ons.git
+   cd Watchy_GSR-Add-ons
    ```
-2. **Copy Addon**  
-   Copy the `TicTacToe` folder into your Watchy project under:  
+
+2. **Copy desired add-ons**  
+   Copy the folder(s) for the add-on(s) you want into your Watchy sketch directory, e.g.:  
    ```
-   Watchface Addons/TicTacToe/
+   WatchyProject/
+   ├─ src/
+   │  ├─ GSR.ino
+   │  └─ Watchface Addons/
+   │     ├─ AlbumCoverWatchface/
+   │     ├─ RedubGSR/
+   │     ├─ OrbitalGSR/
+   │     ├─ CaptnGSR/
+   │     ├─ Stationary/
+   │     └─ TicTacToe/     ← (optional, WIP)
    ```
-3. **Include in GSR.ino**  
-   In your `GSR.ino` (located at the root of your Watchy sketch), add the following line **above** the `setup()` function or alongside other addon includes:  
+
+3. **Include in `GSR.ino`**  
+   In your `GSR.ino`, add `#include` lines for each add-on above `setup()`. For example:
    ```cpp
-   #include "../Watchface Addons/TicTacToe/TicTacToe.h"
+   #include "Watchface Addons/AlbumCoverWatchface/AlbumCoverWatchface.h"
+   #include "Watchface Addons/RedubGSR/RedubGSR.h"
+   #include "Watchface Addons/OrbitalGSR/OrbitalGSR.h"
+   #include "Watchface Addons/CaptnGSR/CaptnGSR.h"
+   #include "Watchface Addons/Stationary/stationaryGSR.h"
+   // #include "Watchface Addons/TicTacToe/TicTacToe.h"  // WIP: currently high battery drain
    ```
-4. **Compile & Upload**  
-   Build and flash the GSR firmware as usual. Upon reboot, select “TicTacToe” from the watchface menu.
+   _Uncomment the TicTacToe include at your own risk – it’s still under heavy optimization._
+
+4. **Build & Flash**  
+   ```bash
+   pio run --target upload
+   ```  
+   or use the Arduino IDE’s upload button.
+
+---
+
+## Usage
+
+- After flashing, reboot your Watchy.  
+- In the watchface selection menu, you’ll see entries for each included add-on:
+  - **AlbumCover** – cycles through BMP album covers.  
+  - **RedubGSR** – emulates a classic Casio digital watch style with segmented digits.  
+  - **OrbitalGSR** – displays time, date, weather, and battery level using minimalist circles.  
+  - **CaptnGSR** – a Captain Haddock meme-inspired watchface with fun graphic overlays.
+  - **Stationary** – Pebble-style stationary text layout adapted for Watchy.  
+  - **TicTacToe** – (WIP) launch the morpion game; expect higher battery usage.
 
 ---
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! Please open an issue or submit a pull request on GitHub.
+Contributions welcome!  
+- Open an issue to report bugs or request features.  
+- Submit a pull request with your enhancements or fixes.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.  
